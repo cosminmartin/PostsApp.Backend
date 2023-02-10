@@ -15,8 +15,6 @@ namespace PostsApp.WebAPI.Controllers
             _config = config;
         }
 
-
-        //GET Messages
         [HttpGet]
         public async Task<ActionResult<List<MessageDto>>> GetAllMessages()
         {
@@ -32,7 +30,6 @@ namespace PostsApp.WebAPI.Controllers
             return await connection.QueryAsync<MessageDto>("SELECT * FROM Messages");
         }
 
-        //GET Message
         [HttpGet("{messageId}")]
         public async Task<ActionResult<List<MessageDto>>> GetMessage(Guid messageId)
         {
@@ -45,10 +42,7 @@ namespace PostsApp.WebAPI.Controllers
             return Ok(message);
         }
 
-        //CREATE
-        
-
-        //UPDATE
+     
         [HttpPut]
         public async Task<ActionResult<List<MessageDto>>> UpdateMessage(MessageDto message)
         {
@@ -58,7 +52,7 @@ namespace PostsApp.WebAPI.Controllers
             return Ok(await GetAllMessages(connection));
         }
 
-        //DELETE
+ 
         [HttpDelete("{messageId}")]
         public async Task<ActionResult<List<MessageDto>>> DeleteMessage(Guid messageId)
         {
