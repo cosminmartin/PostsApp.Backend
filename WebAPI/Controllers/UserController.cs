@@ -1,8 +1,12 @@
-﻿using Dapper;
+﻿using AutoMapper;
+using Dapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using PostsApp.Domain.Entities;
+using PostsApp.Domain.Services;
 using PostsApp.Services.Dtos;
+using PostsApp.Services;
+
 
 namespace PostsApp.WebAPI.Controllers
 {
@@ -10,71 +14,94 @@ namespace PostsApp.WebAPI.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        private readonly IConfiguration _config;
-        public UserController(IConfiguration config)
+        protected readonly IUserService _userService;
+
+        public UserController(IUserService userService)
         {
-            _config = config;   
+            _userService = userService;
         }
 
-
-        //GET USERS
         [HttpGet]
-        public async Task<ActionResult<List<UserDto>>>GetAllUsers()
+
+        public async Task<IActionResult> GetAllUsers()
         {
-            using var connection = new SqlConnection(_config.GetConnectionString("DefaultConnection"));
-            //var users = await connection.QueryAsync<User>("SELECT * FROM Users");
-            IEnumerable<UserDto> users = await GetAllUsers(connection);
+            var users = await _userService.GetAllUsers();
 
             return Ok(users);
         }
 
-        private static async Task<IEnumerable<UserDto>> GetAllUsers(SqlConnection connection)
-        {
-            return await connection.QueryAsync<UserDto>("SELECT * FROM Users");
-        }
 
-        //GET USER
-        [HttpGet("{userId}")]
-        public async Task<ActionResult<List<UserDto>>> GetUser(Guid userId)
-        {
-            using var connection = new SqlConnection(_config.GetConnectionString("DefaultConnection"));
+        
+        //private readonly IConfiguration _config;
 
-            var user = await connection.QueryFirstAsync<UserDto>("SELECT * FROM Users WHERE Id = @UserId",
-                new {UserId = userId}               
-                );
+        //private readonly IMapper _mapper;
+        //public UserController(IConfiguration config)
+        //{
+        //    _config = config;   
+        //}
 
-            return Ok(user);
-        }
+        //public UserController(IMapper mapper)
+        //{
+        //    _mapper = mapper;
+        //}
 
-        //CREATE
-        [HttpPost]
-        public async Task<ActionResult<List<UserDto>>> CreateUser(UserDto user)
-        {
-            using var connection = new SqlConnection(_config.GetConnectionString("DefaultConnection"));
+        //[HttpGet]
+        //public async Task<ActionResult<List<UserDto>>>GetAllUsers()
+        //{
+        //    using var connection = new SqlConnection(_config.GetConnectionString("DefaultConnection"));
+        //    //var users = await connection.QueryAsync<User>("SELECT * FROM Users");
+        //    IEnumerable<UserDto> users = await GetAllUsers(connection);
 
-            await connection.ExecuteAsync("INSERT INTO Users (FirstName, LastName, Phonenumber, Email) values(@FirstName, @LastName, @Phonenumber, @Email)", user);
-            return Ok(await GetAllUsers(connection));
-        }
+        //    return Ok(users);
+        //}
 
-        //UPDATE
-        [HttpPut]
-        public async Task<ActionResult<List<UserDto>>> UpdateUser(UserDto user)
-        {
-            using var connection = new SqlConnection(_config.GetConnectionString("DefaultConnection"));
+        //private static async Task<IEnumerable<UserDto>> GetAllUsers(SqlConnection connection)
+        //{
+        //    return await connection.QueryAsync<UserDto>("SELECT * FROM Users");
+        //}
 
-            await connection.ExecuteAsync("UPDATE Users SET firstName = @FirstName, lastName = @LastName, phonenumber = @Phonenumber, email = @Email WHERE id = @Id ", user);
-            return Ok(await GetAllUsers(connection));
-        }
 
-        //DELETE
-        [HttpDelete("{userId}")]
-        public async Task<ActionResult<List<UserDto>>> DeleteUser(Guid userId)
-        {
-            using var connection = new SqlConnection(_config.GetConnectionString("DefaultConnection"));
+        //[HttpGet("{userId}")]
+        //public async Task<ActionResult<List<UserDto>>> GetUser(Guid userId)
+        //{
+        //    using var connection = new SqlConnection(_config.GetConnectionString("DefaultConnection"));
 
-            await connection.ExecuteAsync("DELETE FROM Users WHERE Id = @UserId ", new {UserId = userId});
-            return Ok(await GetAllUsers(connection));
-        }
+        //    var user = await connection.QueryFirstAsync<UserDto>("SELECT * FROM Users WHERE Id = @UserId",
+        //        new {UserId = userId}               
+        //        );
+
+        //    return Ok(user);
+        //}
+
+
+        //[HttpPost]
+        //public async Task<ActionResult<List<UserDto>>> CreateUser(UserDto user)
+        //{
+        //    using var connection = new SqlConnection(_config.GetConnectionString("DefaultConnection"));
+
+        //    await connection.ExecuteAsync("INSERT INTO Users (FirstName, LastName, Phonenumber, Email) values(@FirstName, @LastName, @Phonenumber, @Email)", user);
+        //    return Ok(await GetAllUsers(connection));
+        //}
+
+
+        //[HttpPut]
+        //public async Task<ActionResult<List<UserDto>>> UpdateUser(UserDto user)
+        //{
+        //    using var connection = new SqlConnection(_config.GetConnectionString("DefaultConnection"));
+
+        //    await connection.ExecuteAsync("UPDATE Users SET firstName = @FirstName, lastName = @LastName, phonenumber = @Phonenumber, email = @Email WHERE id = @Id ", user);
+        //    return Ok(await GetAllUsers(connection));
+        //}
+
+
+        //[HttpDelete("{userId}")]
+        //public async Task<ActionResult<List<UserDto>>> DeleteUser(Guid userId)
+        //{
+        //    using var connection = new SqlConnection(_config.GetConnectionString("DefaultConnection"));
+
+        //    await connection.ExecuteAsync("DELETE FROM Users WHERE Id = @UserId ", new {UserId = userId});
+        //    return Ok(await GetAllUsers(connection));
+        //}
 
     }
 }

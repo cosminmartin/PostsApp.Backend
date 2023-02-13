@@ -16,7 +16,6 @@ namespace PostsApp.WebAPI.Controllers
         }
 
 
-        //GET Posts
         [HttpGet]
         public async Task<ActionResult<List<PostDto>>> GetAllPosts()
         {
@@ -32,7 +31,7 @@ namespace PostsApp.WebAPI.Controllers
             return await connection.QueryAsync<PostDto>("SELECT * FROM Posts");
         }
 
-        //GET Post
+
         [HttpGet("{postId}")]
         public async Task<ActionResult<List<PostDto>>> GetPost(Guid postId)
         {
@@ -45,7 +44,7 @@ namespace PostsApp.WebAPI.Controllers
             return Ok(post);
         }
 
-        //CREATE
+
         //[HttpPost]
         //public async Task<ActionResult<List<PostDto>>> CreatePost(PostDto post)
         //{
@@ -55,7 +54,7 @@ namespace PostsApp.WebAPI.Controllers
         //    return Ok(await GetAllPosts(connection));
         //}
 
-        //UPDATE
+
         [HttpPut]
         public async Task<ActionResult<List<PostDto>>> UpdatePost(PostDto post)
         {
@@ -65,7 +64,7 @@ namespace PostsApp.WebAPI.Controllers
             return Ok(await GetAllPosts(connection));
         }
 
-        //DELETE
+
         [HttpDelete("{postId}")]
         public async Task<ActionResult<List<PostDto>>> DeletePost(Guid postId)
         {

@@ -5,9 +5,9 @@ VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PostsApp.WebAPI", "WebAPI\PostsApp.WebAPI.csproj", "{B4F61488-9D65-4C57-BA2A-A0E462A75D46}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PostsApp.Domain", "PostsApp.Domain\PostsApp.Domain.csproj", "{2365E66F-7A56-41DC-922C-33D1C0CEF665}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PostsApp.Domain", "PostsApp.Domain\PostsApp.Domain.csproj", "{2365E66F-7A56-41DC-922C-33D1C0CEF665}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PostsApp.Services", "PostsApp.Services\PostsApp.Services.csproj", "{7535F9B8-8CCA-44DC-9089-8E756C40DEB4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PostsApp.Services", "PostsApp.Services\PostsApp.Services.csproj", "{7535F9B8-8CCA-44DC-9089-8E756C40DEB4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
