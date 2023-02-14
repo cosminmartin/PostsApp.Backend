@@ -55,10 +55,10 @@ namespace PostsApp.DataAccess.Repository
         }
 
         public void DeleteUser(Guid userId)
-        {
-            using var connection = new SqlConnection(_config.GetConnectionString("DefaultConnection"));
+        {           
+                using var connection = new SqlConnection(_config.GetConnectionString("DefaultConnection"));
 
-            connection.ExecuteAsync("DELETE FROM Users WHERE Id = @UserId ", new { UserId = userId });        
+                connection.ExecuteAsync("DELETE FROM Users WHERE Id = @UserId ", new { UserId = userId });
         }
 
 

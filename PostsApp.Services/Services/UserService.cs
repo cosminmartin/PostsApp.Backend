@@ -50,9 +50,9 @@ namespace PostsApp.Domain.Services
             _userRepository.UpdateUser(userDto);
         }
 
-        public void DeleteUser(Guid userId)
+        public void  DeleteUser(Guid userId)
         {
-            _userRepository.DeleteUser(userId);
+             _userRepository.DeleteUser(userId);         
         }
 
     }

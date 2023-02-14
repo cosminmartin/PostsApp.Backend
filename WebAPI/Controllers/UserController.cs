@@ -30,8 +30,51 @@ namespace PostsApp.WebAPI.Controllers
             return Ok(users);
         }
 
+        [HttpGet("{userId}")]
+        public async Task<IActionResult> GetUser(Guid userId)
+        {
+            var user = await _userService.GetUser(userId);
 
-        
+            return Ok(user);
+        }
+
+        [HttpPost]
+        public IActionResult CreateUser(UserDto user)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+            _userService.CreateUser(user);
+
+            return Ok(user);
+        }
+
+        [HttpPut]
+        public IActionResult UpdateUser(UserDto user)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+            _userService.UpdateUser(user);
+
+            return Ok();
+        }
+
+        [HttpDelete("{userId}")]
+        public IActionResult DeleteUser(Guid userId)
+        {
+            _userService.DeleteUser(userId);
+
+            return Ok();
+        }
+
+
+
+
         //private readonly IConfiguration _config;
 
         //private readonly IMapper _mapper;
